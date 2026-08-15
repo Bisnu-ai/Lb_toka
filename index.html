@@ -69,6 +69,10 @@
     transition: opacity 0.9s ease, visibility 0.9s ease;
   }
   #preloader.hide{ opacity:0; visibility:hidden; }
+  .preloader-logo-img{
+    width: 120px; height: 120px; border-radius: 50%; object-fit: cover;
+    box-shadow: 0 6px 24px rgba(0,0,0,0.6); margin-bottom: 4px;
+  }
   .preloader-mark{
     font-family:'Fraunces', serif; font-size:1.1rem; letter-spacing:0.08em;
     color: var(--yellow); opacity:0.9;
@@ -446,9 +450,11 @@
   }
   @media (max-width: 640px){
     .hero-img-wrap img { object-fit: contain; object-position: center; }
+    .hero-tag.bl, .hero-tag.br { display: none; }
+    .hero-content { padding-bottom: 100px; }
+    .hero-title { font-size: clamp(2.4rem, 8.5vw, 3.8rem); margin: 8px 0 14px; }
+    .hero-sub { font-size: 0.95rem; max-width: 90%; }
     .memory-grid{ grid-template-columns:1fr; gap:26px; }
-    .hero-tag.bl, .hero-tag.br{ bottom:150px; }
-    .hero-content{ padding-bottom:118px; }
     .section-head{ flex-direction:column; align-items:flex-start; }
     #player-dock{ bottom:12px; padding:10px 12px; border-radius:14px; }
     .player-vol-wrap{ display:none; }
@@ -464,7 +470,8 @@
 <body>
 
 <div id="preloader">
-  <div class="preloader-mark">Our Club House</div>
+  <img src="logo.jpg" alt="LIBRARY TOKA Logo" class="preloader-logo-img">
+  <div class="preloader-mark">LIBRARY TOKA</div>
   <div class="preloader-bar"></div>
   <div class="preloader-label">Memories Loading…</div>
 </div>
