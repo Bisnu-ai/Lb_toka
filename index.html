@@ -902,6 +902,7 @@
   var progressBar = document.getElementById('player-progress');
   var timeCurrent = document.getElementById('time-current');
   var timeTotal = document.getElementById('time-total');
+  var playerDock = document.getElementById('player-dock');
 
   function fmtTime(s){
     if(!isFinite(s) || s < 0) s = 0;
@@ -925,11 +926,23 @@
       isPlaying = true;
       iconPlay.style.display='none'; iconPause.style.display='block';
       playerArt.classList.add('spinning');
+      if(playerDock) playerDock.classList.add('is-playing');
       updateTrackInfo();
+      playerHint.textContent = '';
+      playerHint.style.display = 'none';
     } else if(e.data === YT.PlayerState.PAUSED || e.data === YT.PlayerState.ENDED){
       isPlaying = false;
       iconPlay.style.display='block'; iconPause.style.display='none';
       playerArt.classList.remove('spinning');
+      if(playerDock) playerDock.classList.remove('is-playing');
+      playerHint.textContent = '';
+      playerHint.style.display = 'none';
+    } else if(e.data === YT.PlayerState.BUFFERING){
+      playerHint.textContent = 'Tuning retro radio...';
+      playerHint.style.display = 'block';
+      iconPlay.style.display='none'; iconPause.style.display='block';
+      playerArt.classList.add('spinning');
+      if(playerDock) playerDock.classList.add('is-playing');
     } else if(e.data === YT.PlayerState.CUED){
       updateTrackInfo();
     }
@@ -937,8 +950,17 @@
 
   btnPlay.addEventListener('click', function(){
     if(!ytReady){ return; }
-    if(isPlaying){ ytPlayer.pauseVideo(); }
-    else{ ytPlayer.playVideo(); }
+    if(isPlaying){ 
+      ytPlayer.pauseVideo(); 
+    } else { 
+      ytPlayer.playVideo();
+      // SMART UI TRICK: Instant feedback before YouTube loads
+      iconPlay.style.display='none'; iconPause.style.display='block';
+      playerArt.classList.add('spinning');
+      if(playerDock) playerDock.classList.add('is-playing');
+      playerHint.textContent = 'Dropping the needle...';
+      playerHint.style.display = 'block';
+    }
   });
   document.getElementById('btn-next').addEventListener('click', function(){
     if(ytReady) ytPlayer.nextVideo();
