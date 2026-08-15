@@ -123,6 +123,9 @@
     position:absolute; inset:0; z-index:1;
     will-change: transform;
   }
+  .hero-img-blur {
+    display: none;
+  }
   .hero-img-wrap img{
     width:100%; height:100%; object-fit:cover; object-position:center 38%;
     display:block;
@@ -449,7 +452,21 @@
     .memory-grid{ grid-template-columns:repeat(2,1fr); }
   }
   @media (max-width: 640px){
-    .hero-img-wrap img { object-fit: contain; object-position: center; }
+    .hero-img-wrap { overflow: hidden; }
+    .hero-img-wrap::before {
+      content: '';
+      position: absolute; inset: -40px;
+      background: radial-gradient(circle at 50% 45%, rgba(255, 150, 60, 0.42) 0%, rgba(230, 70, 70, 0.25) 45%, rgba(12, 10, 18, 0.95) 80%);
+      filter: blur(35px);
+      z-index: 0;
+      pointer-events: none;
+    }
+    .hero-img-wrap img {
+      position: relative; z-index: 1;
+      width: 100%; height: 100%;
+      object-fit: contain; object-position: center;
+      filter: drop-shadow(0 12px 35px rgba(0,0,0,0.85));
+    }
     .hero-tag.bl, .hero-tag.br { display: none; }
     .hero-content { padding-bottom: 100px; }
     .hero-title { font-size: clamp(2.4rem, 8.5vw, 3.8rem); margin: 8px 0 14px; }
@@ -471,7 +488,7 @@
 
 <div id="preloader">
   <img src="logo.jpg" alt="LIBRARY TOKA Logo" class="preloader-logo-img">
-  <div class="preloader-mark">LIBRARY TOKA</div>
+  <div class="preloader-mark">LIBRARY ଟୋକା</div>
   <div class="preloader-bar"></div>
   <div class="preloader-label">Memories Loading…</div>
 </div>
@@ -501,7 +518,7 @@
 
   <div class="hero-content">
     <div class="hero-kicker">Aaj club mein milte hain.</div>
-    <h1 class="hero-title" id="hero-title" tabindex="0" role="button" aria-label="Click for a memory">OUR CLUB HOUSE</h1>
+    <h1 class="hero-title" id="hero-title" tabindex="0" role="button" aria-label="Click for a memory">LIBRARY ଟୋକା</h1>
     <p class="hero-sub">Some places are built with walls.<br>Some are built with memories.</p>
   </div>
 
