@@ -527,11 +527,22 @@
     .memory-grid{ grid-template-columns:repeat(2,1fr); }
   }
   @media (max-width: 640px){
-    .hero-img-wrap { overflow: hidden; }
+    .hero-img-wrap { 
+      overflow: hidden; 
+      /* Extend trees up and ground down with seamless realistic gradient */
+      background: linear-gradient(to bottom, 
+        #0b140d 0%, 
+        #121d12 18%, 
+        #182116 35%, 
+        #1c1811 65%, 
+        #15110a 82%, 
+        #0b0805 100%
+      );
+    }
     .hero-img-wrap::before {
       content: '';
       position: absolute; inset: -40px;
-      background: radial-gradient(circle at 50% 45%, rgba(255, 150, 60, 0.42) 0%, rgba(230, 70, 70, 0.25) 45%, rgba(12, 10, 18, 0.95) 80%);
+      background: radial-gradient(circle at 50% 50%, rgba(255, 150, 60, 0.25) 0%, transparent 65%);
       filter: blur(35px);
       z-index: 0;
       pointer-events: none;
@@ -540,7 +551,9 @@
       position: relative; z-index: 1;
       width: 100%; height: 100%;
       object-fit: contain; object-position: center;
-      filter: drop-shadow(0 12px 35px rgba(0,0,0,0.85));
+      /* Soft edge fading to blend the image seamlessly into the extended background */
+      -webkit-mask-image: linear-gradient(to bottom, transparent 1.5%, black 12%, black 88%, transparent 98.5%);
+      mask-image: linear-gradient(to bottom, transparent 1.5%, black 12%, black 88%, transparent 98.5%);
     }
     .hero-tag.bl, .hero-tag.br { display: none; }
     .hero-content { padding-bottom: 100px; }
