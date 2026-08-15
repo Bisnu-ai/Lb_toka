@@ -885,7 +885,7 @@
      file rather than served over http/https), tell the person why. */
   setTimeout(function(){
     if(!ytReady){
-      playerHint.textContent = 'Playback needs the page hosted (http/https), not opened as a local file';
+      playerHint.textContent = '';
       playerHint.style.display = 'block';
       btnPlay.style.opacity = '0.5';
       btnPlay.style.cursor = 'not-allowed';
